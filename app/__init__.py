@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user
-from flask import _app_ctx_stack as app_ctx #Pour eviter les erreurs qui sont aparu après avoir déplacé les fichiers
 
 app = Flask(__name__)
 
