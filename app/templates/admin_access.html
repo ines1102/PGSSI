@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>{{ title }}</title>
+</head>
+
+<body class="container">
+    <h1 class="title">Connexion mode admin</h1>
+
+    <!-- Affichage du message d'erreur -->
+    {% if error_message %}
+    <p style="color: red">{{ error_message }}</p>
+    {% endif %}
+
+    <form action="/connexion_admin" method="POST">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        <ul>
+            <li>
+                <label for="user">Login :</label>
+                <input type="text" id="nom" name="nom" required />
+            </li>
+            <li>
+                <label for="mdp">Mot de passe :</label>
+                <input type="password" id="mdp" name="mdp" required />
+            </li>
+        </ul>
+        <input type="submit" value="Connexion" class="button" />
+    </form>
+    <a href="/" class="button">Retour à l'accueil</a>
+</body>
+
+</html>

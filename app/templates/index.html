@@ -13,24 +13,27 @@
 
     <!-- Affichage du message d'erreur -->
     {% if error_message %}
-    <p style="color: red">{{ error_message }}</p>
+    <p class="error-message">{{ error_message }}</p>
     {% endif %}
 
+    <!-- Formulaire de connexion -->
     <form action="/connexion" method="POST">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-        <ul>
-            <li>
-                <label for="user">Login :</label>
-                <input type="text" id="nom" name="nom" required />
-            </li>
-            <li>
-                <label for="mdp">Mot de passe :</label>
-                <input type="password" id="mdp" name="mdp" required />
-            </li>
-        </ul>
+        <div class="form-group">
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+            <label for="mdp">Mot de passe :</label>
+            <input type="password" id="mdp" name="mdp" required />
+        </div>
         <input type="submit" value="Connexion" class="button" />
     </form>
+
+    <!-- Lien vers la page d'accueil -->
     <a href="/" class="button">Retour à l'accueil</a>
+
+    <!-- Formulaire d'accès administrateur -->
     <form action="/inscription" method="POST">
         <input type="submit" value="Admin Access" class="button" />
     </form>
