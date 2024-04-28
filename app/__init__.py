@@ -5,7 +5,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user
 app = Flask(__name__)
 
 # Configuration de la base de données principale
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pro.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 
 # Configuration des binds pour des bases de données supplémentaires
 app.config['SQLALCHEMY_BINDS'] = {
