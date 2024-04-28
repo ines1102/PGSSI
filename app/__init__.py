@@ -1,19 +1,23 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_restx import Api, Resource 
+from flask_login import LoginManager, login_user, login_required, logout_user
+from flask import _app_ctx_stack as app_ctx #Pour eviter les erreurs qui sont aparu après avoir déplacé les fichiers
 
 app = Flask(__name__)
 
-api = Api(app)
-
-# Configuration de la base de données de connexion
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///personnel.db'  # BD de connexion
+# Configuration de la base de données principale
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pro.db'
 
 # Configuration des binds pour des bases de données supplémentaires
 app.config['SQLALCHEMY_BINDS'] = {
-    'patients': 'sqlite:///datas.db'
+    'patients': 'sqlite:///data.db'
 }
 
 db = SQLAlchemy(app)
 
+# Initialisation de l'extension LoginManager
+login_manager = LoginManager(app)
+login_manager.login_view = 'connexion'  # 'connexion' est le nom de la route de connexion
+
+# Importer les vues après la création de 'app' et 'db'
 from app import views
