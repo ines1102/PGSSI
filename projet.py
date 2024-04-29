@@ -18,18 +18,12 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS patients
 conn.commit()
 
 def generate_unique_key():
-   
     random_string = secrets.token_hex(16)  # ici on sécurise
-
-    
     timestamp = str(int(time.time()))
-
-   
     combined_string = random_string + timestamp
 
     # ici on fait de la viande hachée
     unique_key = hashlib.sha256(combined_string.encode()).hexdigest()
-
     return unique_key
 
 def generate_qr_code(data, filename):
