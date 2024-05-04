@@ -117,7 +117,7 @@ def connexion_admin():
     # Retourner le modèle avec le message d'erreur si la méthode est GET ou si la méthode est POST et qu'il y a une erreur
     return render_template('admin_access.html', error_message=error_message)
 
-# Route pour afficher le formulaire d'ajout de patient
+# Route pour ajouter un patient
 @app.route('/ajouter_patient', methods=['GET', 'POST'])
 def ajouter_patient():
     error_message = None
@@ -131,9 +131,11 @@ def ajouter_patient():
         taille = request.form['taille']
         poids = request.form['poids']
 
-        # Vérifier si tous les champs sont remplis
-        if not nom or not prenom or not sexe or not taille or not poids:
-            error_message = "Veuillez remplir tous les champs du formulaire."
+        # Vérifier si le patient existe déjà dans la base de données
+        existing_patient = Patient.query.filter_by(nom=nom, prenom=prenom).first()
+
+        if existing_patient:
+            error_message = "Ce patient existe déjà dans la base de données."
         else:
             # Créer un nouveau patient
             nouveau_patient = Patient(nom=nom, prenom=prenom, sexe=sexe, taille=taille, poids=poids)
@@ -145,9 +147,8 @@ def ajouter_patient():
             # Message de succès
             success_message = "Le patient a été ajouté avec succès."
 
-    # Afficher le formulaire d'ajout de patient
+    # Afficher le formulaire d'ajout de patient avec les messages appropriés
     return render_template('ajouter_patient.html', error_message=error_message, success_message=success_message)
-
 # Route pour la déconnexion
 @app.route('/deconnexion')
 @login_required
@@ -193,3 +194,10 @@ def profil():
             success_message = "Mot de passe mis à jour avec succès."
 
     return render_template('profil.html', error_message_profile=error_message_profile, error_message_form=error_message_form, success_message=success_message)
+
+# Route pour afficher les patients dans un tableau
+@app.route('/patients')
+@login_required
+def patients():
+    patients = Patient.query.all()
+    return render_template('afficher_patients.html', patients=patients)

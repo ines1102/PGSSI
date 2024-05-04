@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/tableau.css">
+    <link rel="stylesheet" href="static/ajouter.css">
+    <title>Dashboard Admin</title>
+</head>
+
+<body>
+    <h1>Tableau de Bord Admin</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('ajouter_patient') }}">Ajouter un Patient</a></li>
+            <li><a href="{{ url_for('ajouter_pro') }}">Inscription Professionnel</a></li>
+            <li><a href="{{ url_for('patients') }}">Afficher les medecins</a></li>
+            <li><a href="{{ url_for('index') }}">Deconnexion</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <table class="patient-table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Sexe</th>
+                    <th>Taille</th>
+                    <th>Poids</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td>{{ patient.nom }}</td>
+                    <td>{{ patient.prenom }}</td>
+                    <td>{{ patient.sexe }}</td>
+                    <td>{{ patient.taille }}</td>
+                    <td>{{ patient.poids }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
