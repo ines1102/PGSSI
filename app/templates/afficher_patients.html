@@ -37,6 +37,7 @@
                         <th>Sexe</th>
                         <th>Taille</th>
                         <th>Poids</th>
+                        <th>N°</th>
                         <th></th> <!-- Colonne pour le bouton de suppression -->
                     </tr>
                 </thead>
@@ -48,6 +49,7 @@
                         <td>{{ patient.sexe }}</td>
                         <td>{{ patient.taille }}</td>
                         <td>{{ patient.poids }}</td>
+                        <td>{{ patient.numero_unique }}</td>
                         <td><input type="checkbox" name="patientIds[]" value="{{ patient.id }}"></td>
                         <!-- Case à cocher -->
                     </tr>

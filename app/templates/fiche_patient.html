@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche Patient</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Informations du patient</h1>
+    <div id="patient-info">
+        <p>Nom: {{ patient.nom }}</p>
+        <p>Prénom: {{ patient.prenom }}</p>
+        <p>Sexe: {{ patient.sexe }}</p>
+        <p>Taille: {{ patient.taille }} cm</p>
+        <p>Poids: {{ patient.poids }} kg</p>
+        <p>Numéro Unique: {{ patient.numero_unique }}</p>
+        <!-- Ajoutez d'autres informations du patient ici si nécessaire -->
+    </div>
+</body>
+
+</html>

@@ -5,6 +5,8 @@ from app import app, db, mail
 from app.models import Pro, Admin, Patient
 from flask_mail import Message  
 import hashlib
+from app.projet import *
+
 
 # Clé secrète pour la gestion des sessions
 app.secret_key = "123"
@@ -32,7 +34,7 @@ def ajouter_pro():
         # Récupérer les données du formulaire
         email = request.form['email']
         mdp = request.form['mdp']
-        mdp_hache = hashlib.sha1(mdp.encode()).hexdigest()
+        mdp_hache = hashlib.sha256(mdp.encode()).hexdigest()
 
         # Vérifier si un professionnel avec le même e-mail existe déjà
         existing_pro = Pro.query.filter_by(email=email).first()
@@ -69,7 +71,7 @@ def connexion():
     if request.method == 'POST':
         email = request.form['email']
         mdp = request.form['mdp']
-        mdp_hache = hashlib.sha1(mdp.encode()).hexdigest()
+        mdp_hache = hashlib.sha256(mdp.encode()).hexdigest()
         pro = Pro.query.filter_by(email=email).first()
 
         if pro:
@@ -99,7 +101,7 @@ def connexion_admin():
         mdp = request.form.get('mdp')
 
         if nom is not None and mdp is not None:
-            mdp_hache = hashlib.sha1(mdp.encode()).hexdigest()
+            mdp_hache = hashlib.sha256(mdp.encode()).hexdigest()
             admin = Admin.query.filter_by(nom=nom).first()
 
             if admin:
@@ -176,11 +178,23 @@ def deconnexion():
     logout_user()
     return redirect(url_for('index'))
 
-# Route pour le dashboard après la connexion
+
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    numero_unique = request.args.get('numero_unique')
+    if numero_unique:
+        # Recherche du patient correspondant au numéro unique dans la base de données
+        patient = Patient.query.filter_by(numero_unique=numero_unique).first()
+        if patient:
+            # Si le patient est trouvé, affichez ses informations
+            return render_template('fiche_patient.html', patient=patient)
+        else:
+            # Si aucun patient n'est trouvé, renvoyer un message d'erreur JSON
+            return jsonify(error="Aucun patient trouvé avec ce numéro unique.")
+    else:
+        # Si aucun numéro unique n'est fourni, affichez simplement le dashboard
+        return render_template('dashboard.html')
 
 # Route pour le dashboard de l'administrateur après la connexion
 @app.route('/dashboard_admin')
@@ -203,13 +217,13 @@ def profil():
             confirmer_mot_de_passe = request.form['confirmer_mot_de_passe']
 
                     # Vérification du mot de passe actuel
-        if hashlib.sha1(mot_de_passe_actuel.encode()).hexdigest() != current_user.mdp:
+        if hashlib.sha256(mot_de_passe_actuel.encode()).hexdigest() != current_user.mdp:
             error_message_form = "Mot de passe actuel incorrect. Veuillez réessayer."
         elif nouveau_mot_de_passe != confirmer_mot_de_passe:
             error_message_form = "Les nouveaux mots de passe ne correspondent pas. Veuillez réessayer."
         else:
             # Mise à jour du mot de passe
-            current_user.mdp = hashlib.sha1(nouveau_mot_de_passe.encode()).hexdigest()
+            current_user.mdp = hashlib.sha256(nouveau_mot_de_passe.encode()).hexdigest()
             db.session.commit()
             success_message = "Mot de passe mis à jour avec succès."
 
@@ -217,7 +231,6 @@ def profil():
 
 # Route pour afficher les patients dans un tableau
 @app.route('/patients')
-@login_required
 def patients():
     patients = Patient.query.all()
     return render_template('afficher_patients.html', patients=patients)

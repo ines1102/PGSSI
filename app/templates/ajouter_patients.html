@@ -32,11 +32,11 @@
                 {% if success_message %}
                 <p style="color: green">{{ success_message }}</p>
                 {% endif %}
-                <label for="nom">Nom:</label><br>
-                <input type="text" id="nom" name="nom"><br>
-                <label for="prenom">Prénom:</label><br>
-                <input type="text" id="prenom" name="prenom"><br>
-                <label for="sexe">Sexe:</label><br>
+                <label for="nom">Nom: *</label><br>
+                <input type="text" id="nom" name="nom" required><br>
+                <label for="prenom">Prénom: *</label><br>
+                <input type="text" id="prenom" name="prenom" required><br>
+                <label for="sexe">Sexe: *</label><br>
                 <div class="gender-select">
                     <div class="radio-wrapper">
                         <input type="radio" id="male" name="sexe" value="male">
@@ -47,10 +47,10 @@
                         <label for="female">Féminin</label>
                     </div>
                 </div>
-                <label for="taille">Taille (cm):</label><br>
-                <input type="number" id="taille" name="taille"><br>
-                <label for="poids">Poids (kg):</label><br>
-                <input type="number" id="poids" name="poids"><br><br>
+                <label for="taille">Taille (cm): *</label><br>
+                <input type="number" id="taille" name="taille" required><br>
+                <label for="poids">Poids (kg): *</label><br>
+                <input type="number" id="poids" name="poids" required><br><br>
                 <input type="submit" value="Ajouter">
             </form>
         </section>
