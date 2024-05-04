@@ -1,5 +1,3 @@
-// script.js file
-
 function domReady(fn) {
     if (
         document.readyState === "complete" ||
@@ -12,17 +10,17 @@ function domReady(fn) {
 }
 
 domReady(function () {
-
-    // If found your qr code
+    // Si le scan est réussi
     function onScanSuccess(decodeText, decodeResult) {
         fetch('/dashboard?numero_unique=' + decodeText)
             .then(response => response.text()) // Convertit la réponse en texte
             .then(data => {
-                if (data.error) {
-                    alert(data.error); // Affiche le message d'erreur dans une popup
+                // Vérifie si le message d'erreur indiquant qu'aucun patient n'est trouvé
+                if (data.includes('Aucun patient trouvé avec ce numéro unique.')) {
+                    alert('Aucun patient n\'est identifié par ce QR code.');
                 } else {
-                    // Si aucun message d'erreur, affichez les informations du patient
-                    document.getElementById('dashboard').innerText = data;
+                    // Si aucun message d'erreur, redirigez l'utilisateur vers la page fiche_patient.html
+                    window.location.href = "/fiche_patient?numero_unique=" + decodeText;
                 }
             })
             .catch(error => console.error('Erreur:', error));

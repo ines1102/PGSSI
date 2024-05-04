@@ -6,6 +6,7 @@ from app.models import Pro, Admin, Patient
 from flask_mail import Message  
 import hashlib
 from app.projet import *
+import jsonify
 
 
 # Clé secrète pour la gestion des sessions
@@ -190,10 +191,10 @@ def dashboard():
             # Si le patient est trouvé, affichez ses informations
             return render_template('fiche_patient.html', patient=patient)
         else:
-            # Si aucun patient n'est trouvé, renvoyer un message d'erreur JSON
+            # Si aucun patient n'est trouvé, renvoyer un message d'erreur JSON ou une page d'erreur
             return jsonify(error="Aucun patient trouvé avec ce numéro unique.")
     else:
-        # Si aucun numéro unique n'est fourni, affichez simplement le dashboard
+        # Si aucun numéro unique n'est fourni, affichez simplement le dashboard ou une page d'erreur
         return render_template('dashboard.html')
 
 # Route pour le dashboard de l'administrateur après la connexion
@@ -234,3 +235,16 @@ def profil():
 def patients():
     patients = Patient.query.all()
     return render_template('afficher_patients.html', patients=patients)
+
+
+# Route pour afficher la fiche d'un patient
+@app.route('/fiche_patient')
+def fiche_patient():
+    # Récupérer le numéro unique du patient à partir de la requête GET
+    numero_unique = request.args.get('numero_unique')
+
+    # Rechercher le patient correspondant dans la base de données en utilisant le numéro unique
+    patient = Patient.query.filter_by(numero_unique=numero_unique).first()
+
+    # Passer les informations du patient au modèle fiche_patient.html pour affichage
+    return render_template('fiche_patient.html', patient=patient)

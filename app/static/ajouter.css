@@ -153,7 +153,6 @@ select {
 /* Styles pour la balise nav */
 nav {
     margin-top: 10px;
-    background-color: #333;
     /* Couleur de fond */
     padding: 10px 0;
     /* Espacement intérieur */
@@ -248,5 +247,22 @@ button {
 }
 
 button:hover {
+    background-color: rgb(0, 123, 148);
+}
+
+
+a {
+    margin: 0 auto;
+    display: inline-block;
+    /* Ajout de la propriété pour ajuster la taille au contenu */
+    padding: 10px 20px;
+    background-color: rgb(0, 161, 193);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
     background-color: rgb(0, 123, 148);
 }

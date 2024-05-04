@@ -5,20 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiche Patient</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="static/ajouter.css">
 </head>
 
 <body>
-    <h1>Informations du patient</h1>
-    <div id="patient-info">
-        <p>Nom: {{ patient.nom }}</p>
-        <p>Prénom: {{ patient.prenom }}</p>
-        <p>Sexe: {{ patient.sexe }}</p>
-        <p>Taille: {{ patient.taille }} cm</p>
-        <p>Poids: {{ patient.poids }} kg</p>
-        <p>Numéro Unique: {{ patient.numero_unique }}</p>
-        <!-- Ajoutez d'autres informations du patient ici si nécessaire -->
+    <div class="container">
+        <section class="content">
+            <!-- Affichage des informations du patient -->
+            <h1>Fiche Patient</h1>
+            <p><strong>Nom:</strong> {{ patient.nom }}</p>
+            <p><strong>Prénom:</strong> {{ patient.prenom }}</p>
+            <p><strong>Sexe:</strong> {{ patient.sexe }}</p>
+            <p><strong>Taille:</strong> {{ patient.taille }} cm</p>
+            <p><strong>Poids:</strong> {{ patient.poids }} kg</p>
+            <!-- Ajoutez d'autres informations du patient si nécessaire -->
+        </section>
+        <a href="/dashboard">Retour au scanner</a>
     </div>
+    <!-- Lien pour revenir au tableau de bord -->
 </body>
 
 </html>
