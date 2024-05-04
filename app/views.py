@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, url_for, session, make_res
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, current_user, UserMixin, login_required
 from app import app, db, mail
-from app.models import Pro, Admin
+from app.models import Pro, Admin, Patient
 from mailbox import Message
 import random
 import string
@@ -128,6 +128,36 @@ def connexion_admin():
     # Retourner le modèle avec le message d'erreur si la méthode est GET ou si la méthode est POST et qu'il y a une erreur
     return render_template('admin_access.html', error_message=error_message)
 
+# Route pour afficher le formulaire d'ajout de patient
+@app.route('/ajouter_patient', methods=['GET', 'POST'])
+def ajouter_patient():
+    error_message = None
+    success_message = None
+
+    # Vérifier si l'utilisateur est un administrateur
+    if current_user.is_authenticated and isinstance(current_user, Admin):
+        if request.method == 'POST':
+            # Récupérer les données du formulaire
+            nom = request.form['nom']
+            prenom = request.form['prenom']
+            taille = request.form['taille']
+            poids = request.form['poids']
+
+            # Créer un nouveau patient
+            nouveau_patient = Patient(nom=nom, prenom=prenom, taille=taille, poids=poids)
+
+            # Ajouter le nouveau patient à la base de données
+            db.session.add(nouveau_patient)
+            db.session.commit()
+
+            # Message de succès
+            success_message = "Le patient a été ajouté avec succès."
+
+        # Afficher le formulaire d'ajout de patient
+        return render_template('ajouter_patient.html', error_message=error_message, success_message=success_message)
+    else:
+        # Rediriger vers une page d'erreur ou une page d'accès refusé
+        return redirect(url_for('page_d_acces_refuse'))
 
 # Route pour la déconnexion
 @app.route('/deconnexion')
