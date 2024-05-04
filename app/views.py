@@ -131,17 +131,21 @@ def ajouter_patient():
         taille = request.form['taille']
         poids = request.form['poids']
 
-        # Créer un nouveau patient
-        nouveau_patient = Patient(nom=nom, prenom=prenom, sexe=sexe, taille=taille, poids=poids)
+        # Vérifier si tous les champs sont remplis
+        if not nom or not prenom or not sexe or not taille or not poids:
+            error_message = "Veuillez remplir tous les champs du formulaire."
+        else:
+            # Créer un nouveau patient
+            nouveau_patient = Patient(nom=nom, prenom=prenom, sexe=sexe, taille=taille, poids=poids)
 
-        # Ajouter le nouveau patient à la base de données
-        db.session.add(nouveau_patient)
-        db.session.commit()
+            # Ajouter le nouveau patient à la base de données
+            db.session.add(nouveau_patient)
+            db.session.commit()
 
-         # Message de succès
-        success_message = "Le patient a été ajouté avec succès."
+            # Message de succès
+            success_message = "Le patient a été ajouté avec succès."
 
-        # Afficher le formulaire d'ajout de patient
+    # Afficher le formulaire d'ajout de patient
     return render_template('ajouter_patient.html', error_message=error_message, success_message=success_message)
 
 # Route pour la déconnexion

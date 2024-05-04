@@ -40,6 +40,7 @@ body {
 }
 
 h1 {
+    margin-top: 10px;
     color: #333;
     text-align: center;
 }
@@ -161,4 +162,62 @@ button:hover {
 
 .radio-wrapper input[type="radio"][id="male"]:checked+label:before {
     background-color: #259ee4;
+}
+
+/* Styles pour la balise nav */
+nav {
+    margin-top: 10px;
+    background-color: #333;
+    /* Couleur de fond */
+    padding: 10px 0;
+    /* Espacement intérieur */
+}
+
+nav ul {
+    list-style-type: none;
+    /* Supprimer les puces de liste */
+    text-align: center;
+    /* Centrer le contenu */
+}
+
+nav ul li {
+    display: inline;
+    /* Afficher les éléments de la liste en ligne */
+    margin: 0 10px;
+    /* Marge entre les éléments */
+}
+
+nav ul li a {
+    text-decoration: none;
+    /* Supprimer les soulignements des liens */
+    color: #fff;
+    /* Couleur du texte */
+}
+
+/* Section content */
+.content {
+    padding: 20px;
+    /* Espacement intérieur */
+}
+
+
+/* Bouton Ajouter */
+input[type="submit"] {
+    background-color: rgb(0, 161, 193);
+    /* Couleur de fond par défaut */
+    color: #fff;
+    /* Couleur du texte */
+    padding: 10px;
+    /* Espacement intérieur */
+    border: none;
+    /* Supprimer la bordure */
+    border-radius: 4px;
+    /* Bordure arrondie */
+    cursor: pointer;
+    /* Curseur pointeur */
+}
+
+input[type="submit"]:hover {
+    background-color: rgb(0, 123, 148);
+    /* Couleur de fond au survol */
 }

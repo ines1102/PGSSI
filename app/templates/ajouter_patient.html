@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter un Patient</title>
-    <link rel="stylesheet" href="ajouter.css">
+    <link rel="stylesheet" href="static/ajouter.css">
 </head>
 
 <body>
@@ -19,13 +19,22 @@
             <li><a href="/ajouter_patient">Ajouter un Patient</a></li>
         </ul>
     </nav>
-    <section>
+    <section class="content">
         <h2>Formulaire d'ajout de patient</h2>
         <form action="/ajouter_patient" method="post">
+            <!-- Message d'erreur en cas d'échec -->
+            {% if error_message %}
+            <p style="color: red">{{ error_message }}</p>
+            {% endif %}
+
+            {% if success_message %}
+            <p style="color: green">{{ success_message }}</p>
+            {% endif %}
             <label for="nom">Nom:</label><br>
             <input type="text" id="nom" name="nom"><br>
             <label for="prenom">Prénom:</label><br>
             <input type="text" id="prenom" name="prenom"><br>
+            <label for="sexe">Sexe:</label><br>
             <div class="gender-select">
                 <div class="radio-wrapper">
                     <input type="radio" id="male" name="sexe" value="male">
@@ -43,9 +52,7 @@
             <input type="submit" value="Ajouter">
         </form>
     </section>
-    <footer>
-        <p>&copy; 2024 Projet PGSSI</p>
-    </footer>
+
 </body>
 
 </html>
