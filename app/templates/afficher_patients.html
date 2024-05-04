@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="static/tableau.css">
     <link rel="stylesheet" href="static/ajouter.css">
     <title>Dashboard Admin</title>
+    <style>
+        /* Style pour cacher la colonne des cases à cocher par défaut */
+        .hide-checkboxes td.checkbox-column {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,29 +26,47 @@
         </ul>
     </nav>
     <div class="container">
-        <table class="patient-table">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Sexe</th>
-                    <th>Taille</th>
-                    <th>Poids</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for patient in patients %}
-                <tr>
-                    <td>{{ patient.nom }}</td>
-                    <td>{{ patient.prenom }}</td>
-                    <td>{{ patient.sexe }}</td>
-                    <td>{{ patient.taille }}</td>
-                    <td>{{ patient.poids }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <form id="deleteForm" action="{{ url_for('delete_patients') }}" method="post">
+            <table class="patient-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Sexe</th>
+                        <th>Taille</th>
+                        <th>Poids</th>
+                        <th>Action</th> <!-- Colonne pour le bouton de suppression -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                    <tr>
+                        <td>{{ patient.nom }}</td>
+                        <td>{{ patient.prenom }}</td>
+                        <td>{{ patient.sexe }}</td>
+                        <td>{{ patient.taille }}</td>
+                        <td>{{ patient.poids }}</td>
+                        <td><input type="checkbox" name="patientIds[]" value="{{ patient.id }}"></td>
+                        <!-- Case à cocher -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit">Supprimer</button>
+        </form>
     </div>
+    <button id="modifyButton">Modifier</button>
+    <script>
+        // Fonction pour afficher ou masquer la colonne des cases à cocher en fonction de l'état du bouton "Modifier"
+        document.getElementById("modifyButton").addEventListener("click", function () {
+            var table = document.querySelector(".patient-table");
+            if (table.classList.contains("hide-checkboxes")) {
+                table.classList.remove("hide-checkboxes");
+            } else {
+                table.classList.add("hide-checkboxes");
+            }
+        });
+    </script>
 </body>
 
 </html>

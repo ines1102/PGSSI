@@ -235,3 +235,18 @@ h1 {
     margin-right: 20px;
     /* Espacement horizontal entre les radios boutons */
 }
+
+button {
+    margin: 0 auto;
+    display: block;
+    padding: 10px 20px;
+    background-color: rgb(0, 161, 193);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: rgb(0, 123, 148);
+}

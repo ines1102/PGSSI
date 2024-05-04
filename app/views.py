@@ -149,6 +149,28 @@ def ajouter_patient():
 
     # Afficher le formulaire d'ajout de patient avec les messages appropriés
     return render_template('ajouter_patient.html', error_message=error_message, success_message=success_message)
+
+
+# Ajoutez une route pour supprimer les patients sélectionnés
+@app.route('/delete_patients', methods=['POST'])
+def delete_patients():
+    # Vérifiez si des patients ont été sélectionnés pour la suppression
+    if 'patientIds[]' in request.form:
+        # Obtenez les ID des patients sélectionnés
+        patient_ids = request.form.getlist('patientIds[]')
+
+        # Supprimez les patients de la base de données en fonction de leurs ID
+        for patient_id in patient_ids:
+            patient = Patient.query.get(patient_id)
+            if patient:
+                db.session.delete(patient)
+        
+        # Validez les changements dans la base de données
+        db.session.commit()
+
+    # Redirigez l'utilisateur vers la page d'accueil ou une autre page appropriée après la suppression
+    return redirect(url_for('patients'))
+
 # Route pour la déconnexion
 @app.route('/deconnexion')
 @login_required
