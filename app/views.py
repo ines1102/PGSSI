@@ -32,7 +32,7 @@ def index():
     return render_template('index.html', title='MDM')
 
 # Route pour la page d'inscription des professionnels
-@app.route('/inscription', methods=['GET', 'POST'])
+@app.route('/ajouter_pro', methods=['GET', 'POST'])
 def inscription():
     error_message = None
     success_message = None
@@ -117,7 +117,7 @@ def connexion_admin():
                 if admin.mdp == mdp_hache:
                     response = make_response(redirect(url_for('dashboard')))
                     response.set_cookie('admin_id', str(admin.id), secure=True, httponly=True, samesite='Strict')
-                    return render_template('inscription.html', error_message=error_message)
+                    return render_template('dashboard_admin.html', error_message=error_message)
                 else:
                     error_message = "Mot de passe incorrect. Veuillez réessayer."
             else:

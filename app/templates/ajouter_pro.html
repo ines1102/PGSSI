@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un Professionnel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Ajouter un Professionnel</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/ajouter_pro">Ajouter un Pro</a></li>
+            <li><a href="/ajouter_patient">Ajouter un Patient</a></li>
+        </ul>
+    </nav>
+    <section>
+        <h2>Formulaire d'ajout de professionnel</h2>
+        <form action="/ajouter_pro" method="post">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email"><br>
+            <label for="password">Mot de passe:</label><br>
+            <input type="password" id="password" name="password"><br><br>
+            <input type="submit" value="Ajouter">
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2024 Projet PGSSI</p>
+    </footer>
+</body>
+
+</html>
