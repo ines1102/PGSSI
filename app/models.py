@@ -49,3 +49,24 @@ with app.app_context():
         admin = Admin(nom='admin', mdp=mdp_hache)
         db.session.add(admin)
         db.session.commit()
+
+
+class Patient(db.Model):
+    _bind_key_ = 'data'
+    __tablename__ = 'patients'  # Nom de la table dans la base de données
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nom = db.Column(db.String(80), nullable=False)
+    prenom = db.Column(db.String(80), nullable=False)
+    sexe = db.Column(db.String(10), nullable=False)
+    taille = db.Column(db.Integer, nullable=False)  # En cm
+    poids = db.Column(db.Integer, nullable=False)  # En kg
+
+    def __init__(self, nom, prenom, sexe, taille, poids):
+        self.nom = nom
+        self.prenom = prenom
+        self.sexe = sexe
+        self.taille = taille
+        self.poids = poids
+
+    def __repr__(self):
+        return f"Patient('{self.nom}', '{self.prenom}', '{self.sexe}', {self.taille}cm, {self.poids}kg)"
