@@ -1,24 +1,16 @@
 /* Styles pour le corps */
 body {
     font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    /* Centrage horizontal */
-    align-items: center;
-    /* Centrage vertical */
     height: 100vh;
     margin: 0;
 }
 
 /* Styles pour le conteneur */
 .container {
+    width: 50%;
     text-align: center;
-}
-
-/* Styles pour le titre */
-h1 {
-    margin-bottom: 20px;
-    /* Espacement entre le titre et les boutons */
+    align-items: center;
+    margin: 0 auto;
 }
 
 /* Styles pour les boutons */
@@ -31,15 +23,14 @@ ul {
 li {
     display: inline-block;
     margin-right: 10px;
-    /* Espacement entre les boutons */
 }
 
 li:last-child {
     margin-right: 0;
-    /* Aucun espacement à droite pour le dernier bouton */
 }
 
-li a {
+li a,
+button {
     display: block;
     padding: 10px 20px;
     background-color: rgb(0, 161, 193);
@@ -49,6 +40,69 @@ li a {
     transition: background-color 0.3s ease;
 }
 
-li a:hover {
+li a:hover,
+button:hover {
     background-color: rgb(0, 123, 148);
+}
+
+.logout-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.logout-container ul li {
+    display: block;
+    margin: 0 auto;
+    /* Centre le bouton horizontalement */
+}
+
+.logout-container ul li:last-child {
+    margin-top: 10px;
+}
+
+/* Styles pour la balise nav */
+nav {
+    margin-top: 10px;
+    background-color: #333;
+    /* Couleur de fond */
+    padding: 10px 20px;
+    /* Espacement intérieur */
+}
+
+nav ul {
+    list-style-type: none;
+    /* Supprimer les puces de liste */
+    text-align: center;
+    /* Centrer le contenu */
+}
+
+nav ul li {
+    display: inline;
+    /* Afficher les éléments de la liste en ligne */
+    margin: 0 10px;
+    /* Marge entre les éléments */
+}
+
+nav ul li a {
+    text-decoration: none;
+    /* Supprimer les soulignements des liens */
+    color: #fff;
+    /* Couleur du texte */
+}
+
+.container ul {
+    display: flex;
+    justify-content: center;
+    /* Aligner les éléments horizontalement au centre */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.container ul li {
+    margin-right: 10px;
+}
+
+.container ul li:last-child {
+    margin-right: 0;
 }

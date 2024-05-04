@@ -1,13 +1,11 @@
-<!-- Index.html file -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/ajouter.css">
-    <title>QR Code Scanner / Reader
-    </title>
+    <link rel="stylesheet" href="static/style.css">
+    <title>QR Code Scanner / Reader</title>
 </head>
 
 <body>
@@ -17,6 +15,10 @@
             <div id="my-qr-reader">
             </div>
         </div>
+        <br>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Déconnexion</a></li>
+        </ul>
     </div>
     <script src="https://unpkg.com/html5-qrcode">
     </script>
