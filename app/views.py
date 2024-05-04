@@ -1,18 +1,10 @@
 # Importation des modules nécessaires
 from flask import render_template, request, redirect, url_for, session, make_response 
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, login_user, logout_user, current_user, UserMixin, login_required
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from app import app, db, mail
 from app.models import Pro, Admin, Patient
-from mailbox import Message
-import random
-import string
-import hashlib
 from flask_mail import Message  
-
-with app.app_context():
-    # Appelez db.create_all() pour créer les tables dans la base de données
-    db.create_all()
+import hashlib
 
 # Clé secrète pour la gestion des sessions
 app.secret_key = "123"
@@ -25,7 +17,6 @@ login_manager.login_view = 'connexion'
 def load_user(user_id):
     return Pro.query.get(int(user_id))
 
-
 # Route pour la page d'accueil
 @app.route('/')
 def index():
@@ -33,7 +24,7 @@ def index():
 
 # Route pour la page d'inscription des professionnels
 @app.route('/ajouter_pro', methods=['GET', 'POST'])
-def inscription():
+def ajouter_pro():
     error_message = None
     success_message = None
 
@@ -60,7 +51,7 @@ def inscription():
             success_message = "Le professionnel a été inscrit avec succès."
 
     # Si la méthode est GET, afficher simplement le formulaire d'inscription
-    return render_template('inscription.html', error_message=error_message, success_message=success_message)
+    return render_template('ajouter_pro.html', error_message=error_message, success_message=success_message)
 
 # Route pour envoyer un e-mail de test
 @app.route("/send_mail")
@@ -69,7 +60,6 @@ def send_mail():
     msg.body = "This is a test email"
     mail.send(msg)
     return "Mail has been sent"
-
 
 # Route pour la connexion d'un professionnel
 @app.route('/connexion', methods=['GET', 'POST'])
@@ -94,7 +84,6 @@ def connexion():
 
     return render_template('index.html', error_message=error_message)
 
-
 # Route pour la connexion des administrateurs
 @app.route('/admin_access', methods=['GET', 'POST'])
 def admin_access():
@@ -115,7 +104,7 @@ def connexion_admin():
 
             if admin:
                 if admin.mdp == mdp_hache:
-                    response = make_response(redirect(url_for('dashboard')))
+                    response = make_response(redirect(url_for('dashboard_admin')))
                     response.set_cookie('admin_id', str(admin.id), secure=True, httponly=True, samesite='Strict')
                     return render_template('dashboard_admin.html', error_message=error_message)
                 else:
@@ -134,30 +123,26 @@ def ajouter_patient():
     error_message = None
     success_message = None
 
-    # Vérifier si l'utilisateur est un administrateur
-    if current_user.is_authenticated and isinstance(current_user, Admin):
-        if request.method == 'POST':
-            # Récupérer les données du formulaire
-            nom = request.form['nom']
-            prenom = request.form['prenom']
-            taille = request.form['taille']
-            poids = request.form['poids']
+    if request.method == 'POST':
+        # Récupérer les données du formulaire
+        nom = request.form['nom']
+        prenom = request.form['prenom']
+        sexe = request.form.get('sexe')
+        taille = request.form['taille']
+        poids = request.form['poids']
 
-            # Créer un nouveau patient
-            nouveau_patient = Patient(nom=nom, prenom=prenom, taille=taille, poids=poids)
+        # Créer un nouveau patient
+        nouveau_patient = Patient(nom=nom, prenom=prenom, sexe=sexe, taille=taille, poids=poids)
 
-            # Ajouter le nouveau patient à la base de données
-            db.session.add(nouveau_patient)
-            db.session.commit()
+        # Ajouter le nouveau patient à la base de données
+        db.session.add(nouveau_patient)
+        db.session.commit()
 
-            # Message de succès
-            success_message = "Le patient a été ajouté avec succès."
+         # Message de succès
+        success_message = "Le patient a été ajouté avec succès."
 
         # Afficher le formulaire d'ajout de patient
-        return render_template('ajouter_patient.html', error_message=error_message, success_message=success_message)
-    else:
-        # Rediriger vers une page d'erreur ou une page d'accès refusé
-        return redirect(url_for('page_d_acces_refuse'))
+    return render_template('ajouter_patient.html', error_message=error_message, success_message=success_message)
 
 # Route pour la déconnexion
 @app.route('/deconnexion')
@@ -171,6 +156,12 @@ def deconnexion():
 @login_required
 def dashboard():
     return render_template('dashboard.html')
+
+# Route pour le dashboard de l'administrateur après la connexion
+@app.route('/dashboard_admin')
+@login_required
+def dashboard_admin():
+    return render_template('dashboard_admin.html')
 
 # Route pour afficher le profil du médecin connecté et permettre la modification du mot de passe
 @app.route('/profil', methods=['GET', 'POST'])
@@ -186,15 +177,15 @@ def profil():
             nouveau_mot_de_passe = request.form['nouveau_mot_de_passe']
             confirmer_mot_de_passe = request.form['confirmer_mot_de_passe']
 
-            # Vérification du mot de passe actuel
-            if hashlib.sha1(mot_de_passe_actuel.encode()).hexdigest() != current_user.mdp:
-                error_message_form = "Mot de passe actuel incorrect. Veuillez réessayer."
-            elif nouveau_mot_de_passe != confirmer_mot_de_passe:
-                error_message_form = "Les nouveaux mots de passe ne correspondent pas. Veuillez réessayer."
-            else:
-                # Mise à jour du mot de passe
-                current_user.mdp = hashlib.sha1(nouveau_mot_de_passe.encode()).hexdigest()
-                db.session.commit()
-                success_message = "Mot de passe mis à jour avec succès."
+                    # Vérification du mot de passe actuel
+        if hashlib.sha1(mot_de_passe_actuel.encode()).hexdigest() != current_user.mdp:
+            error_message_form = "Mot de passe actuel incorrect. Veuillez réessayer."
+        elif nouveau_mot_de_passe != confirmer_mot_de_passe:
+            error_message_form = "Les nouveaux mots de passe ne correspondent pas. Veuillez réessayer."
+        else:
+            # Mise à jour du mot de passe
+            current_user.mdp = hashlib.sha1(nouveau_mot_de_passe.encode()).hexdigest()
+            db.session.commit()
+            success_message = "Mot de passe mis à jour avec succès."
 
     return render_template('profil.html', error_message_profile=error_message_profile, error_message_form=error_message_form, success_message=success_message)
