@@ -4,26 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un patient</title>
+    <title>Ajouter un Patient</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <h1>Ajouter un patient</h1>
-    <form action="/ajouter_patient" method="post">
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required><br><br>
-
-        <label for="prenom">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" required><br><br>
-
-        <label for="taille">Taille (en cm) :</label>
-        <input type="number" id="taille" name="taille" required><br><br>
-
-        <label for="poids">Poids (en kg) :</label>
-        <input type="number" id="poids" name="poids" required><br><br>
-
-        <input type="submit" value="Ajouter">
-    </form>
+    <header>
+        <h1>Ajouter un Patient</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/ajouter_pro">Ajouter un Pro</a></li>
+            <li><a href="/ajouter_patient">Ajouter un Patient</a></li>
+        </ul>
+    </nav>
+    <section>
+        <h2>Formulaire d'ajout de patient</h2>
+        <form action="/ajouter_patient" method="post">
+            <label for="nom">Nom:</label><br>
+            <input type="text" id="nom" name="nom"><br>
+            <label for="prenom">Prénom:</label><br>
+            <input type="text" id="prenom" name="prenom"><br>
+            <label for="taille">Taille (cm):</label><br>
+            <input type="number" id="taille" name="taille"><br>
+            <label for="poids">Poids (kg):</label><br>
+            <input type="number" id="poids" name="poids"><br><br>
+            <input type="submit" value="Ajouter">
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2024 Projet PGSSI</p>
+    </footer>
 </body>
 
 </html>
