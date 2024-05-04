@@ -218,3 +218,20 @@ h1 {
     margin-bottom: 20px;
     /* Espacement entre le titre et les boutons */
 }
+
+/* Styles pour la classe sexe */
+.gender-select {
+    display: flex;
+    flex-direction: row;
+    /* Direction de ligne pour aligner les radios boutons côte à côte */
+    justify-content: center;
+    /* Centrage horizontal des radios boutons */
+    margin-bottom: 15px;
+    /* Espacement en bas */
+}
+
+/* Styles pour les radios boutons */
+.radio-wrapper {
+    margin-right: 20px;
+    /* Espacement horizontal entre les radios boutons */
+}
