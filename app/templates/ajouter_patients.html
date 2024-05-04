@@ -14,9 +14,10 @@
     </header>
     <nav>
         <ul>
-            <li><a href="/dashboard_admin">Accueil</a></li>
-            <li><a href="/ajouter_pro">Ajouter un Pro</a></li>
-            <li><a href="/ajouter_patient">Ajouter un Patient</a></li>
+            <li><a href="{{ url_for('ajouter_patient') }}">Ajouter un Patient</a></li>
+            <li><a href="{{ url_for('ajouter_pro') }}">Inscription Professionnel</a></li>
+            <li><a href="{{ url_for('patients') }}">Afficher les patients</a></li>
+            <li><a href="{{ url_for('index') }}">Deconnexion</a></li>
         </ul>
     </nav>
     <div class="container">
