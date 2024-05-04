@@ -4,15 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
     <title>Dashboard Admin</title>
 </head>
 
 <body>
-    <h1>Tableau de Bord Admin</h1>
-    <ul>
-        <li><a href="{{ url_for('ajouter_patient') }}">Ajouter un Patient</a></li>
-        <li><a href="{{ url_for('ajouter_pro') }}">Inscription Professionnel</a></li>
-    </ul>
+    <div class="container">
+        <h1>Tableau de Bord Admin</h1>
+        <ul>
+            <li><a href="{{ url_for('ajouter_patient') }}">Ajouter un Patient</a></li>
+            <li><a href="{{ url_for('ajouter_pro') }}">Inscription Professionnel</a></li>
+        </ul>
+    </div>
 </body>
 
 </html>

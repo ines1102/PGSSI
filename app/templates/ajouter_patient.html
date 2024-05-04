@@ -14,45 +14,46 @@
     </header>
     <nav>
         <ul>
-            <li><a href="/">Accueil</a></li>
+            <li><a href="/dashboard_admin">Accueil</a></li>
             <li><a href="/ajouter_pro">Ajouter un Pro</a></li>
             <li><a href="/ajouter_patient">Ajouter un Patient</a></li>
         </ul>
     </nav>
-    <section class="content">
-        <h2>Formulaire d'ajout de patient</h2>
-        <form action="/ajouter_patient" method="post">
-            <!-- Message d'erreur en cas d'échec -->
-            {% if error_message %}
-            <p style="color: red">{{ error_message }}</p>
-            {% endif %}
+    <div class="container">
+        <section class="content">
+            <h2>Formulaire d'ajout de patient</h2>
+            <form action="/ajouter_patient" method="post">
+                <!-- Message d'erreur en cas d'échec -->
+                {% if error_message %}
+                <p style="color: red">{{ error_message }}</p>
+                {% endif %}
 
-            {% if success_message %}
-            <p style="color: green">{{ success_message }}</p>
-            {% endif %}
-            <label for="nom">Nom:</label><br>
-            <input type="text" id="nom" name="nom"><br>
-            <label for="prenom">Prénom:</label><br>
-            <input type="text" id="prenom" name="prenom"><br>
-            <label for="sexe">Sexe:</label><br>
-            <div class="gender-select">
-                <div class="radio-wrapper">
-                    <input type="radio" id="male" name="sexe" value="male">
-                    <label for="male">Masculin</label>
+                {% if success_message %}
+                <p style="color: green">{{ success_message }}</p>
+                {% endif %}
+                <label for="nom">Nom:</label><br>
+                <input type="text" id="nom" name="nom"><br>
+                <label for="prenom">Prénom:</label><br>
+                <input type="text" id="prenom" name="prenom"><br>
+                <label for="sexe">Sexe:</label><br>
+                <div class="gender-select">
+                    <div class="radio-wrapper">
+                        <input type="radio" id="male" name="sexe" value="male">
+                        <label for="male">Masculin</label>
+                    </div>
+                    <div class="radio-wrapper">
+                        <input type="radio" id="female" name="sexe" value="female">
+                        <label for="female">Féminin</label>
+                    </div>
                 </div>
-                <div class="radio-wrapper">
-                    <input type="radio" id="female" name="sexe" value="female">
-                    <label for="female">Féminin</label>
-                </div>
-            </div>
-            <label for="taille">Taille (cm):</label><br>
-            <input type="number" id="taille" name="taille"><br>
-            <label for="poids">Poids (kg):</label><br>
-            <input type="number" id="poids" name="poids"><br><br>
-            <input type="submit" value="Ajouter">
-        </form>
-    </section>
-
+                <label for="taille">Taille (cm):</label><br>
+                <input type="number" id="taille" name="taille"><br>
+                <label for="poids">Poids (kg):</label><br>
+                <input type="number" id="poids" name="poids"><br><br>
+                <input type="submit" value="Ajouter">
+            </form>
+        </section>
+    </div>
 </body>
 
 </html>

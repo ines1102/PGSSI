@@ -62,20 +62,6 @@ select {
     border-radius: 4px;
 }
 
-button {
-    background-color: #f90;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #f57c00;
-}
-
-
 /* CHECKBOX SEXE */
 .gender-select {
     display: flex;
@@ -220,4 +206,15 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: rgb(0, 123, 148);
     /* Couleur de fond au survol */
+}
+
+/* Styles pour le conteneur */
+.container {
+    text-align: center;
+}
+
+/* Styles pour le titre */
+h1 {
+    margin-bottom: 20px;
+    /* Espacement entre le titre et les boutons */
 }

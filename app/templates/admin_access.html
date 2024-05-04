@@ -4,21 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/ajouter.css">
     <title>Connexion Administrateur</title>
 </head>
 
-<body>
-    <h1>Connexion Administrateur</h1>
-    {% if error_message %}
-    <p style="color: red">{{ error_message }}</p>
-    {% endif %}
-    <form action="/connexion_admin" method="POST">
-        <label for="nom">Nom:</label>
-        <input type="text" id="nom" name="nom" required>
-        <label for="mdp">Mot de passe:</label>
-        <input type="password" id="mdp" name="mdp" required>
-        <input type="submit" value="Connexion Administrateur">
-    </form>
+<body class="container">
+    <section class="content">
+        <h1 class="title"> Connexion Administrateur</h1>
+        {% if error_message %}
+        <p style="color: red">{{ error_message }}</p>
+        {% endif %}
+        <form action="/connexion_admin" method="POST">
+            <label for="nom">Nom:</label>
+            <input type="text" id="nom" name="nom" required>
+            <label for="mdp">Mot de passe:</label>
+            <input type="password" id="mdp" name="mdp" required>
+            <input type="submit" value="Connexion Administrateur">
+        </form>
+    </section>
 </body>
 
 </html>

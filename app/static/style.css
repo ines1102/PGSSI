@@ -1,73 +1,54 @@
-/* style.css file*/
+/* Styles pour le corps */
 body {
+    font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
-    margin: 0;
-    padding: 0;
+    /* Centrage horizontal */
+    align-items: center;
+    /* Centrage vertical */
     height: 100vh;
-    box-sizing: border-box;
-    text-align: center;
-    background: rgb(128 0 0 / 66%);
+    margin: 0;
 }
 
+/* Styles pour le conteneur */
 .container {
-    width: 100%;
-    max-width: 500px;
-    margin: 5px;
+    text-align: center;
 }
 
-.container h1 {
-    color: #ffffff;
+/* Styles pour le titre */
+h1 {
+    margin-bottom: 20px;
+    /* Espacement entre le titre et les boutons */
 }
 
-.section {
-    background-color: #ffffff;
-    padding: 50px 30px;
-    border: 1.5px solid #b2b2b2;
-    border-radius: 0.25em;
-    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
+/* Styles pour les boutons */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-#my-qr-reader {
-    padding: 20px !important;
-    border: 1.5px solid #b2b2b2 !important;
-    border-radius: 8px;
+li {
+    display: inline-block;
+    margin-right: 10px;
+    /* Espacement entre les boutons */
 }
 
-#my-qr-reader img[alt="Info icon"] {
-    display: none;
+li:last-child {
+    margin-right: 0;
+    /* Aucun espacement à droite pour le dernier bouton */
 }
 
-#my-qr-reader img[alt="Camera based scan"] {
-    width: 100px !important;
-    height: 100px !important;
-}
-
-button {
+li a {
+    display: block;
     padding: 10px 20px;
-    border: 1px solid #b2b2b2;
-    outline: none;
-    border-radius: 0.25em;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    background-color: #008000ad;
-    transition: 0.3s background-color;
+    background-color: rgb(0, 161, 193);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #008000;
-}
-
-#html5-qrcode-anchor-scan-type-change {
-    text-decoration: none !important;
-    color: #1d9bf0;
-}
-
-video {
-    width: 100% !important;
-    border: 1px solid #b2b2b2 !important;
-    border-radius: 0.25em;
+li a:hover {
+    background-color: rgb(0, 123, 148);
 }

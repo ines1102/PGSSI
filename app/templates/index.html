@@ -4,39 +4,38 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="static/styles.css" />
+    <link rel="stylesheet" href="static/ajouter.css">
     <title>{{ title }}</title>
 </head>
 
 <body class="container">
-    <h1 class="title">Connexion du médecin</h1>
+    <section class="content">
+        <h1 class="title">Connexion du médecin</h1>
 
-    <!-- Affichage du message d'erreur -->
-    {% if error_message %}
-    <p class="error-message">{{ error_message }}</p>
-    {% endif %}
+        <!-- Affichage du message d'erreur -->
+        {% if error_message %}
+        <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+        <br>
+        <!-- Formulaire de connexion -->
+        <form action="/connexion" method="POST">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <div class="form-group">
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+                <label for="mdp">Mot de passe :</label>
+                <input type="password" id="mdp" name="mdp" required />
+            </div>
+            <input type="submit" value="Connexion" class="button" />
+        </form>
 
-    <!-- Formulaire de connexion -->
-    <form action="/connexion" method="POST">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-        <div class="form-group">
-            <label for="email">Email :</label>
-            <input type="email" id="email" name="email" required />
-        </div>
-        <div class="form-group">
-            <label for="mdp">Mot de passe :</label>
-            <input type="password" id="mdp" name="mdp" required />
-        </div>
-        <input type="submit" value="Connexion" class="button" />
-    </form>
-
-    <!-- Lien vers la page d'accueil -->
-    <a href="/" class="button">Retour à l'accueil</a>
-
-    <!-- Formulaire d'accès administrateur -->
-    <form action="/admin_access" method="POST">
-        <input type="submit" value="Admin Access" class="button" />
-    </form>
+        <!-- Formulaire d'accès administrateur -->
+        <form action="/admin_access" method="POST">
+            <input type="submit" value="Admin Access" class="button" />
+        </form>
+    </section>
 </body>
 
 </html>
