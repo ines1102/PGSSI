@@ -1,11 +1,9 @@
 # Importation des modules nécessaires
 from flask import render_template, request, redirect, url_for, session, make_response 
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
-from app import app, db, mail
+from app import app, db
 from app.models import Pro, Admin, Patient
-from flask_mail import Message  
 import hashlib
-from app.projet import *
 import jsonify
 
 
@@ -23,7 +21,7 @@ def load_user(user_id):
 # Route pour la page d'accueil
 @app.route('/')
 def index():
-    return render_template('index.html', title='MDM')
+    return render_template('index.html')
 
 # Route pour la page d'inscription des professionnels
 @app.route('/ajouter_pro', methods=['GET', 'POST'])
@@ -34,8 +32,6 @@ def ajouter_pro():
     if request.method == 'POST':
         # Récupérer les données du formulaire
         email = request.form['email']
-        mdp = request.form['mdp']
-        mdp_hache = hashlib.sha256(mdp.encode()).hexdigest()
 
         # Vérifier si un professionnel avec le même e-mail existe déjà
         existing_pro = Pro.query.filter_by(email=email).first()
@@ -44,25 +40,27 @@ def ajouter_pro():
             error_message = "Un professionnel avec cet e-mail existe déjà. Veuillez vous connecter."
         else:
             # Créer un nouveau professionnel
-            new_pro = Pro(email=email, mdp=mdp_hache)
+            new_pro = Pro(email=email)
 
             # Ajouter le nouveau professionnel à la base de données
             db.session.add(new_pro)
             db.session.commit()
-
-            # Message de succès
             success_message = "Le professionnel a été inscrit avec succès."
 
     # Si la méthode est GET, afficher simplement le formulaire d'inscription
     return render_template('ajouter_pro.html', error_message=error_message, success_message=success_message)
 
-# Route pour envoyer un e-mail de test
-@app.route("/send_mail")
-def send_mail():
-    msg = Message("Subject", sender="ines.a1102@gmail.com", recipients=["ines.a1102@gmail.com"])
-    msg.body = "This is a test email"
-    mail.send(msg)
-    return "Mail has been sent"
+#@socketio.on('message')
+#def handle_message(message):
+#    print('received message : '+message)
+#   socketio.send('echo: '+message)
+
+#@socketio.on('send_temporary_password')
+#def send_temporary_password(data):
+#    email = data['email']
+#    temporary_password = data['temporary_password']
+    # Code pour envoyer l'e-mail temporaire...
+#    socketio.emit('send_temporary_password_response', {'email': email, 'temporary_password': temporary_password})
 
 # Route pour la connexion d'un professionnel
 @app.route('/connexion', methods=['GET', 'POST'])
@@ -171,6 +169,24 @@ def delete_patients():
 
         # Rediriger vers une autre page après la suppression
         return redirect(url_for('patients'))
+    
+@app.route('/delete_pro', methods=['POST'])
+def delete_pro():
+    if request.method == 'POST':
+        # Récupérer les identifiants des pro à supprimer depuis le formulaire
+        pro_ids = request.form.getlist('proIds[]')
+
+        # Supprimer les pro de la base de données
+        for pro_ids in pro_ids:
+            pro = Pro.query.get(pro_ids)
+            if pro:
+                db.session.delete(pro)
+
+        # Appliquer les changements dans la base de données
+        db.session.commit()
+
+        # Rediriger vers une autre page après la suppression
+        return redirect(url_for('pro'))
 
 # Route pour la déconnexion
 @app.route('/deconnexion')
@@ -235,6 +251,12 @@ def profil():
 def patients():
     patients = Patient.query.all()
     return render_template('afficher_patients.html', patients=patients)
+
+# Route pour afficher les patients dans un tableau
+@app.route('/pro')
+def pro():
+    pros = Pro.query.all()
+    return render_template('afficher_pro.html', pros=pros)
 
 
 # Route pour afficher la fiche d'un patient

@@ -28,28 +28,22 @@
         </ul>
     </nav>
     <div class="container">
-        <form id="deleteForm" action="{{ url_for('delete_patients') }}" method="post">
-            <input type="hidden" id="selectedPatientIds" value="">
+        <form id="deleteForm" action="{{ url_for('delete_pro') }}" method="post">
+            <input type="hidden" id="selectedProIds" value="">
             <table class="patient-table">
                 <thead>
                     <tr>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Sexe</th>
-                        <th>Taille</th>
-                        <th>Poids</th>
+                        <th>Email</th>
+                        <th>Mot de Passe</th>
                         <th></th> <!-- Colonne pour le bouton de suppression -->
                     </tr>
                 </thead>
                 <tbody>
-                    {% for patient in patients %}
+                    {% for pros in pros %}
                     <tr>
-                        <td>{{ patient.nom }}</td>
-                        <td>{{ patient.prenom }}</td>
-                        <td>{{ patient.sexe }}</td>
-                        <td>{{ patient.taille }}</td>
-                        <td>{{ patient.poids }}</td>
-                        <td><input type="checkbox" name="patientIds[]" value="{{ patient.id }}"></td>
+                        <td>{{ pros.email }}</td>
+                        <td>{{ pros.mdp }}</td>
+                        <td><input type="checkbox" name="proIds[]" value="{{ pros.id }}"></td>
                         <!-- Case à cocher -->
                     </tr>
                     {% endfor %}
@@ -73,7 +67,7 @@
         </form>
     </div>
     <button id="modifyButton">Modifier</button>
-    <script src="static/delete.js"></script>
+    <script src="static/delete_pro.js"></script>
 </body>
 
 </html>

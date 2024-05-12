@@ -14,9 +14,11 @@
     </header>
     <nav>
         <ul>
-            <li><a href="/dashboard_admin">Accueil</a></li>
-            <li><a href="/ajouter_pro">Ajouter un Pro</a></li>
-            <li><a href="/ajouter_patient">Ajouter un Patient</a></li>
+            <li><a href="{{ url_for('ajouter_patient') }}">Ajouter un Patient</a></li>
+            <li><a href="{{ url_for('ajouter_pro') }}">Inscription Professionnel</a></li>
+            <li><a href="{{ url_for('patients') }}">Afficher les patients</a></li>
+            <li><a href="{{ url_for('pro') }}">Afficher les professionnels</a></li>
+            <li><a href="{{ url_for('index') }}">Deconnexion</a></li>
         </ul>
     </nav>
     <div class="container">
@@ -33,12 +35,43 @@
             <form action="/ajouter_pro" method="post">
                 <label for="email">Email:</label><br>
                 <input type="email" id="email" name="email"><br>
-                <label for="mdp">Mot de passe:</label><br>
-                <input type="password" id="mdp" name="mdp"><br><br>
                 <input type="submit" value="Ajouter">
             </form>
         </section>
     </div>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script type="text/javascript">
+        // Initialiser EmailJS avec votre Service ID
+        emailjs.init("service_2qidfyd");
+
+        // Fonction pour envoyer un e-mail temporaire contenant le mot de passe temporaire
+        function sendTemporaryPassword(email, temporaryPassword) {
+            // Envoyer l'e-mail avec EmailJS
+            emailjs.send("service_2qidfyd", "template_4g3bca9", {
+                to_name: email, // Remplacez "John" par l'adresse e-mail du destinataire
+                message: `Bonjour, voici votre mot de passe temporaire : ${temporaryPassword}`
+            })
+                .then(function (response) {
+                    console.log("E-mail envoyé avec succès !", response);
+                }, function (error) {
+                    console.error("Erreur lors de l'envoi de l'e-mail :", error);
+                });
+
+            // Envoyer le mot de passe temporaire via WebSocket
+            var socket = io();
+            socket.emit('send_temporary_password', { email: email, temporary_password: temporaryPassword });
+        }
+
+        // Handle response from server
+        var socket = io(); // Définir la variable socket dans la portée globale
+        socket.on('send_temporary_password_response', function (data) {
+            var email = data.email;
+            var temporaryPassword = data.temporary_password;
+            console.log('E-mail sent successfully!');
+            // Additional actions if needed...
+        });
+    </script>
 </body>
 
 </html>

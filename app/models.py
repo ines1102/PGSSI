@@ -4,6 +4,8 @@ import secrets
 import time
 import qrcode
 import os
+import string
+import random
 
 # Définition du modèle Pro dans la base de données
 class Pro(db.Model):
@@ -14,6 +16,18 @@ class Pro(db.Model):
     mdp = db.Column(db.String(120), nullable=False)
     is_connected = False  # Ajout de l'attribut is_connected pour suivre l'état de connexion
 
+    def __init__(self, email):
+        self.email = email
+        self.mdp = self.generate_temporary_password()
+    
+    def generate_temporary_password(self, length=8):
+        """Generate a temporary password with random alphanumeric characters."""
+        # Définition des caractères possibles pour le mot de passe temporaire
+        characters = string.ascii_letters + string.digits  # lettres majuscules et minuscules + chiffres
+        # Génération du mot de passe temporaire en choisissant des caractères aléatoires
+        temporary_password = ''.join(random.choice(characters) for _ in range(length))
+        return temporary_password
+    
     def get_id(self):
         return str(self.id)
 
