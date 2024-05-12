@@ -1,6 +1,3 @@
-Parfait ! Voici une version mise à jour du README avec les noms des auteurs :
-
----
 Proof of Concept (POC) - Plateforme de Sécurité des Données de Santé
 
 Ce Proof of Concept (POC) vise à démontrer la pertinence et l'efficacité d'une solution intégrée pour la sécurisation des données de santé dans le domaine médical, en conformité avec la Politique Générale de Sécurité des Systèmes d'Information de Santé (PGSSI-S).
